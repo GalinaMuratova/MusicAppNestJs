@@ -6,9 +6,7 @@ import {
   Param,
   Post,
   Query,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Track, TrackDocument } from '../schemas/tracks.schema';
@@ -36,15 +34,7 @@ export class TracksController {
     return this.trackModel.find(query);
   }
 
-  @Get(':id')
-  async getOne(@Param('id') id: string) {
-    return this.trackModel.findById(id);
-  }
-
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', { dest: './public/uploads/tracks' }),
-  )
   async create(@Body() trackDto: CreateTracksDto) {
     const track = new this.trackModel({
       name: trackDto.name,
