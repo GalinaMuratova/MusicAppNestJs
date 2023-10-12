@@ -37,11 +37,11 @@ export class ArtistsController {
   )
   async create(
     @UploadedFile() file: Express.Multer.File,
-    @Body() categoryDto: CreateArtistDto,
+    @Body() artistDto: CreateArtistDto,
   ) {
     const artist = new this.artistModel({
-      name: categoryDto.name,
-      information: categoryDto.information,
+      name: artistDto.name,
+      information: artistDto.information,
       image: file ? '/uploads/artists/' + file.filename : null,
     });
 
