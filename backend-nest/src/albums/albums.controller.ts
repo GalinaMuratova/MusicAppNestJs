@@ -62,12 +62,12 @@ export class AlbumsController {
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    const artist = await this.albumModel.findById(id);
+    const album = await this.albumModel.findById(id);
 
-    if (artist) {
+    if (album) {
       await this.albumModel.deleteOne({ _id: id });
     }
 
-    return { message: `${artist.name} deleted` };
+    return { message: `${album.name} deleted` };
   }
 }
