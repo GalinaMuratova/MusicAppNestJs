@@ -1,8 +1,9 @@
-import {Controller, Post, Req} from '@nestjs/common';
-import {InjectModel} from "@nestjs/mongoose";
-import {User, UserDocument} from "../schemas/user.schema";
+import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { User, UserDocument } from '../schemas/user.schema';
 import { Request } from 'express';
-import {Model} from "mongoose";
+import { Model } from 'mongoose';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -20,4 +21,11 @@ export class UsersController {
 
     return user.save();
   }
+
+  @UseGuards(AuthGuard('local'))
+  @Post('sessions')
+  loginUser(@Req() req: Request) {
+    return { message: 'You entered successfully', user: req.user };
+  }
+
 }
