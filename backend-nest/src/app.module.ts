@@ -9,10 +9,11 @@ import { Album, AlbumSchema } from './schemas/album.schema';
 import { TracksController } from './tracks/tracks.controller';
 import { Track, TrackSchema } from './schemas/tracks.schema';
 import {User, UserSchema} from "./schemas/user.schema";
+import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/music2'),
+    MongooseModule.forRoot('mongodb://localhost/musicNest'),
     MongooseModule.forFeature([
       { name: Artist.name, schema: ArtistSchema },
       { name: Album.name, schema: AlbumSchema },
@@ -25,6 +26,7 @@ import {User, UserSchema} from "./schemas/user.schema";
     ArtistsController,
     AlbumsController,
     TracksController,
+    UsersController,
   ],
   providers: [AppService],
 })
