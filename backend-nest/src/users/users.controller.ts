@@ -27,5 +27,4 @@ export class UsersController {
   loginUser(@Req() req: Request) {
     return { message: 'You entered successfully', user: req.user };
   }
-
 }
