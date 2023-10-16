@@ -14,6 +14,7 @@ import { Artist, ArtistDocument } from '../schemas/artist.schema';
 import { Model } from 'mongoose';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {TokenAuthGuard} from "../auth/token-auth.guard";
+import {PermitGuard} from "../permit/permit.guard";
 
 @Controller('artists')
 export class ArtistsController {
@@ -50,6 +51,7 @@ export class ArtistsController {
     return artist.save();
   }
 
+  @UseGuards(PermitGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const artist = await this.artistModel.findById(id);

@@ -12,6 +12,7 @@ import { Model } from 'mongoose';
 import { Track, TrackDocument } from '../schemas/tracks.schema';
 import { CreateTracksDto } from './ create-tracks.dto';
 import {TokenAuthGuard} from "../auth/token-auth.guard";
+import {PermitGuard} from "../permit/permit.guard";
 
 @Controller('tracks')
 export class TracksController {
@@ -47,6 +48,7 @@ export class TracksController {
     return track.save();
   }
 
+  @UseGuards(PermitGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const track = await this.trackModel.findById(id);

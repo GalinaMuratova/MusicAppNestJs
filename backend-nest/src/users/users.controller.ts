@@ -1,7 +1,8 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {Controller, Delete, Post, Req, Res, UseGuards} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from '../schemas/user.schema';
 import { Request } from 'express';
+import { Response } from "express";
 import { Model } from 'mongoose';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -26,5 +27,27 @@ export class UsersController {
   @Post('sessions')
   loginUser(@Req() req: Request) {
     return { message: 'You entered successfully', user: req.user };
+  }
+
+  @UseGuards(AuthGuard('local'))
+  @Delete('sessions')
+  async logoutUser(@Req() req: Request, @Res() res: Response) {
+    try {
+      const token = req.get('Authorization');
+      const success = { message: 'Success' };
+
+      if (!token) return res.send(success);
+
+      const user = await this.userModel.findOne({ token });
+
+      if (!user) return res.send(success);
+
+      user.generateToken();
+      await user.save();
+
+      return res.send(success);
+    } catch (e) {
+      return res.status(500).send({ message: 'Logout error' });
+    }
   }
 }

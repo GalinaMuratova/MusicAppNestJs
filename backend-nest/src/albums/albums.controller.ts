@@ -15,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Album, AlbumDocument } from '../schemas/album.schema';
 import { CreateAlbumsDto } from './create-albums.dto';
 import {TokenAuthGuard} from "../auth/token-auth.guard";
+import {PermitGuard} from "../permit/permit.guard";
 
 @Controller('albums')
 export class AlbumsController {
@@ -34,7 +35,6 @@ export class AlbumsController {
     if (album) {
       query.name = album;
     }
-
     return this.albumModel.find(query);
   }
 
@@ -62,6 +62,7 @@ export class AlbumsController {
     return album.save();
   }
 
+  @UseGuards(PermitGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const album = await this.albumModel.findById(id);
