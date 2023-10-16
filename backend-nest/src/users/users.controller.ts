@@ -1,8 +1,8 @@
-import {Controller, Delete, Post, Req, Res, UseGuards} from '@nestjs/common';
+import { Controller, Delete, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from '../schemas/user.schema';
 import { Request } from 'express';
-import { Response } from "express";
+import { Response } from 'express';
 import { Model } from 'mongoose';
 import { AuthGuard } from '@nestjs/passport';
 

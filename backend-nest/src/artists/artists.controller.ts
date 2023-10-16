@@ -5,7 +5,8 @@ import {
   Get,
   Param,
   Post,
-  UploadedFile, UseGuards,
+  UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateArtistDto } from './create-artist.dto';
@@ -13,8 +14,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Artist, ArtistDocument } from '../schemas/artist.schema';
 import { Model } from 'mongoose';
 import { FileInterceptor } from '@nestjs/platform-express';
-import {TokenAuthGuard} from "../auth/token-auth.guard";
-import {PermitGuard} from "../permit/permit.guard";
+import { TokenAuthGuard } from '../auth/token-auth.guard';
+import { PermitGuard } from '../permit/permit.guard';
 
 @Controller('artists')
 export class ArtistsController {
